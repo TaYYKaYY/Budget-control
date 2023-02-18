@@ -4,9 +4,9 @@
   box-sizing: border-box;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-p{
+/* p{
   z-index: 1;
-}
+} */
 button{
   cursor: pointer;
 }
@@ -17,16 +17,8 @@ nav{
 }
 .dashboard{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-top: 30px;
-}
-.meter{
-  background-color: rgba(0, 0, 0, 0.247);
-  width: 0%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  transition: .5s;
 }
 .hide{
   width: 0px;
@@ -39,6 +31,9 @@ nav{
   opacity: 1;
   margin-left: 25px;
   transition: .5s;
+}
+.wrapper{
+  padding: 0 20px;
 }
 .numbers{
   display: flex;
@@ -71,6 +66,49 @@ nav{
   background-color: transparent;
   border: none;
   font-size: 1.2em;
+}
+.item-container{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid rgb(199, 196, 196)
+}
+.item-container:last-child{
+  border-bottom: none;
+}
+.item-container__main{
+  padding: 5px 0;
+  border-radius: 10px;
+  margin: 5px 0;
+  border: 1px solid rgb(199, 196, 196);
+  text-align: center;
+  overflow: hidden;
+}
+.price{
+  margin-left: auto;
+  margin-right: 15px;
+  background-color: #52adf2;
+  color: white;
+  padding: 4px;
+  border-radius: 10px;
+}
+.close-btn{
+  font-size: 1em;
+  padding: 4px 7px;
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 50%;
+  transition: 150ms;
+}
+.close-btn:hover{
+  background-color: black;
+  color: white;
+}
+.form-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  row-gap: 5px;
+  column-gap: 5px;
 }
 @media all and (max-width: 500px){
   .dashboard{

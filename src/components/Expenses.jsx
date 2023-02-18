@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function Expenses({name, price}) {
+export default function Expenses({name, price, id, deletItem}) {
     return (
-        <div>
-            <h1>{name}</h1>
-            <p>LBP {price}</p>
+        <div className="item-container" id={id}>
+            <p>{name}</p>
+            <p className="price">LBP {price}</p>
+            <button className="fa-solid fa-close close-btn" onClick={deletItem}></button>
         </div>
     )
 }

@@ -1,44 +1,71 @@
 import React, { useState } from "react";
 import Expenses from "./components/Expenses";
 
+/* Tomorrow work on:
+    - remove an item on the closeBtn click from the expenses array
+    - style the add expenses form
+    - optimize font sizes in the input
+    - localStorage if possible (if not delay until the end of the project)
+*/
+
 export default function App() {
     let [budgetEditor, setBudgetEditor] = useState(false)
     let [budget, setBudget] = useState(0)
     let [expenses, setExpenses] = useState([])
-    let [textValue, setTextValue] = useState('')
-    let [priceValue, setPriceValue] = useState('')
-    let total = 0
-    expenses.forEach(expense => total += expense.expensePrice)
-    let remaining = budget - total
+    let totalSpent = 0
+    expenses.forEach(expense => totalSpent += expense.expensePrice)
+    let remaining = budget - totalSpent
+
+    // fucntion to prevent the form from refreshing the page
     function handleSubmit(event){
         event.preventDefault()
     }
 
+    // fucntion to display the budget editor
     function bringEditor(event) {
         setBudgetEditor(prevBudgetEditor => !prevBudgetEditor)
         event.target.parentNode.parentNode.parentNode.children[0].children[1].children[0].focus()
     }
 
+    // function to set the budget to the value of the input
     function changeBudget(event) {
         setBudget(event.target.value)
     }
 
+    // function to add an expense from the inputs
     function addExpense(event) {
-        let children = event.target.parentNode.children
-        if (children[1].value){
+        let children = event.target.parentNode.children[0].children
+        if (children[3].value){
             setExpenses(prevExpenses => {
                 return [
                     ...prevExpenses,
                     {   id: prevExpenses.length + 1,
-                        [children[0].name]: children[0].value,
-                        [children[1].name]: parseInt(children[1].value)
+                        [children[2].name]: children[2].value,
+                        [children[3].name]: parseInt(children[3].value)
                     }
                 ]
             })
         }
     }
-    console.log(expenses)
-    let expensesDisplay = expenses.map(expense => <Expenses key={expense.id} name={expense.expenseName} price={expense.expensePrice}/>)
+    function deleteItem(event){
+        let {id} = event.target.parentNode
+        let item = expenses.find(obj => obj.id === parseInt(id))
+        let index = expenses.findIndex(i => i === item)
+        setExpenses(prevExpenses => {
+            prevExpenses.splice(index, 1)
+            return [...prevExpenses]
+        })
+    }
+    // component render map
+    let expensesDisplay = expenses.map(expense => 
+    <Expenses
+        key={expense.id}
+        name={expense.expenseName}
+        price={expense.expensePrice}
+        id={expense.id}
+        deletItem={deleteItem}
+    />
+    )
     return (
         <div>
             <nav>
@@ -57,28 +84,36 @@ export default function App() {
                     <button onClick={bringEditor} style={{display: 'none'}}></button>
                 </form>
             </nav>
-            <div className="dashboard">
-                <div className="numbers">
-                    <div className="meter" style={{width: `${Math.floor(budget / 40000)}px`}}></div>
-                    <p>My Budget: LBP {budget}</p>
-                    <button className="fa-solid fa-edit edit-btn" onClick={bringEditor}></button>
+            <div className="wrapper">
+                <div className="dashboard">
+                    <div className="numbers">
+                        <p>My Budget: LBP {budget}</p>
+                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor}></button>
+                    </div>
+                    <div className="numbers">
+                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {remaining}</p>
+                    </div>
+                    <div className="numbers">
+                        <p>Spent So Far: LBP {totalSpent}</p>
+                    </div>
                 </div>
-                <div className="numbers">
-                    <div className="meter" style={{width: `${Math.floor(remaining / 40000)}px`}}></div>
-                    <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {remaining}</p>
-                </div>
-                <div className="numbers">
-                    <div className="meter" style={{width: `${Math.floor(total / 40000)}px`}}></div>
-                    <p>Spent So Far: LBP {total}</p>
+                <div className="main">
+                    <h2>Expenses</h2>
+                    <div className="item-container__main">
+                        {expenses.length === 0 ? <p>no expenses</p> : expensesDisplay}
+                    </div>
+                    <h2>Add Expense</h2>
+                    <form onSubmit={handleSubmit} className="add-expense">
+                        <div className="form-grid">
+                            <p>Name</p>
+                            <p>Price</p>
+                            <input id="name" type="text" name="expenseName" required />
+                            <input id="price" type="number" name="expensePrice" required />
+                        </div>
+                        <button onClick={addExpense}>Add</button>
+                    </form>
                 </div>
             </div>
-            <h2>Expenses</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Name" name="expenseName" required />
-                <input type="number" placeholder="Price" name="expensePrice" required />
-                <button onClick={addExpense}>+</button>
-            </form>
-            {expensesDisplay}
-        </div>
+            </div>
     )
 }
