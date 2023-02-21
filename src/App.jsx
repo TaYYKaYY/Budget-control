@@ -3,7 +3,6 @@ import BudgetEditor from "./components/BudgetEditor";
 import Expenses from "./components/Expenses";
 
 /* To work on:
-    - fix the edit budget styling and positioning
     - style the add expenses form
     - localStorage
 */
