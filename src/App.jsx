@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Expenses from "./components/Expenses";
 
-/* Tomorrow work on:
-    - remove an item on the closeBtn click from the expenses array
+/* To work on:
+    - fix the edit budget styling and positioning
     - style the add expenses form
-    - optimize font sizes in the input
-    - localStorage if possible (if not delay until the end of the project)
+    - localStorage
 */
 
 export default function App() {
@@ -15,6 +14,9 @@ export default function App() {
     let totalSpent = 0
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
+    let formattedBudget = budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    let formattedRemain = remaining.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    let formattedSpent = totalSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
     // fucntion to prevent the form from refreshing the page
     function handleSubmit(event){
@@ -47,6 +49,7 @@ export default function App() {
             })
         }
     }
+    // function to delete a list item from the expenses list
     function deleteItem(event){
         let {id} = event.target.parentNode
         let item = expenses.find(obj => obj.id === parseInt(id))
@@ -87,14 +90,14 @@ export default function App() {
             <div className="wrapper">
                 <div className="dashboard">
                     <div className="numbers">
-                        <p>My Budget: LBP {budget}</p>
+                        <p>My Budget: LBP {formattedBudget}</p>
                         <button className="fa-solid fa-edit edit-btn" onClick={bringEditor}></button>
                     </div>
                     <div className="numbers">
-                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {remaining}</p>
+                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formattedRemain}</p>
                     </div>
                     <div className="numbers">
-                        <p>Spent So Far: LBP {totalSpent}</p>
+                        <p>Spent So Far: LBP {formattedSpent}</p>
                     </div>
                 </div>
                 <div className="main">
