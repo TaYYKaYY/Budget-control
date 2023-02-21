@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BudgetEditor from "./components/BudgetEditor";
 import Expenses from "./components/Expenses";
 
 /* To work on:
@@ -14,9 +15,9 @@ export default function App() {
     let totalSpent = 0
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
-    let formattedBudget = budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    let formattedRemain = remaining.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    let formattedSpent = totalSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    let formattedBudget = budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    let formattedRemain = remaining.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+    let formattedSpent = totalSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
 
     // fucntion to prevent the form from refreshing the page
     function handleSubmit(event){
@@ -26,7 +27,7 @@ export default function App() {
     // fucntion to display the budget editor
     function bringEditor(event) {
         setBudgetEditor(prevBudgetEditor => !prevBudgetEditor)
-        event.target.parentNode.parentNode.parentNode.children[0].children[1].children[0].focus()
+        event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].focus()
     }
 
     // function to set the budget to the value of the input
@@ -70,24 +71,9 @@ export default function App() {
     />
     )
     return (
-        <div>
-            <nav>
-                <h1>My Budget Planner</h1>
-                <form onSubmit={handleSubmit}>
-
-                    <input
-                        type="number"
-                        id="budget"
-                        className={budgetEditor ? "show" : "hide"}
-                        value={budget ? budget : ''}
-                        onChange={changeBudget}
-                        placeholder="Enter Budget"
-                    />
-
-                    <button onClick={bringEditor} style={{display: 'none'}}></button>
-                </form>
-            </nav>
-            <div className="wrapper">
+        <div className="wrapper">
+            <BudgetEditor show={budgetEditor} submit={handleSubmit} budgetChange={changeBudget} hideEditor={bringEditor}/>
+            <h1>My Budget Planner</h1>
                 <div className="dashboard">
                     <div className="numbers">
                         <p>My Budget: LBP {formattedBudget}</p>
@@ -116,7 +102,6 @@ export default function App() {
                         <button onClick={addExpense}>Add</button>
                     </form>
                 </div>
-            </div>
             </div>
     )
 }
