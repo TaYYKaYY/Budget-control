@@ -14,9 +14,11 @@ export default function App() {
     let totalSpent = 0
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
-    let formattedBudget = budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-    let formattedRemain = remaining.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-    let formattedSpent = totalSpent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+
+    // function to add commas to the numbers
+    function formatNum(num){
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
 
     // fucntion to prevent the form from refreshing the page
     function handleSubmit(event){
@@ -75,14 +77,14 @@ export default function App() {
             <h1>My Budget Planner</h1>
                 <div className="dashboard">
                     <div className="numbers">
-                        <p>My Budget: LBP {formattedBudget}</p>
+                        <p>My Budget: LBP {formatNum(budget)}</p>
                         <button className="fa-solid fa-edit edit-btn" onClick={bringEditor}></button>
                     </div>
                     <div className="numbers">
-                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formattedRemain}</p>
+                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formatNum(remaining)}</p>
                     </div>
                     <div className="numbers">
-                        <p>Spent So Far: LBP {formattedSpent}</p>
+                        <p>Spent So Far: LBP {formatNum(totalSpent)}</p>
                     </div>
                 </div>
                 <div className="main">
@@ -98,7 +100,7 @@ export default function App() {
                             <input id="name" type="text" name="expenseName" required />
                             <input id="price" type="number" name="expensePrice" required />
                         </div>
-                        <button onClick={addExpense}>Add</button>
+                        <button onClick={addExpense} className="add-btn">Add</button>
                     </form>
                 </div>
             </div>

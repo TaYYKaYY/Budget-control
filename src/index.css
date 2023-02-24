@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 /* p{
   z-index: 1;
@@ -16,14 +16,13 @@ nav{
   align-items: center;
 }
 input{
-  border: 1px solid #e1e3e4;
-  overflow: hidden;
+  border: 1px solid black;
+  border-radius: 5px; 
   padding: 5px;
-  border-radius: 5px;
+  font-size: 1em;
 }
 input:focus{
   outline: none;
-  border-bottom: .5px solid #52adf2;
 }
 .dashboard{
   display: flex;
@@ -95,6 +94,9 @@ input:focus{
   text-align: center;
   overflow: hidden;
 }
+.item-name{
+  font-size: 1.2em;
+}
 .price{
   margin-left: auto;
   margin-right: 15px;
@@ -107,6 +109,16 @@ input:focus{
   display: block;
   width: 100%;
   margin-top: 5px;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: 150ms;
+}
+.save-btn:hover{
+  background-color: white;
+  color:#52adf2;
 }
 .close-btn{
   font-size: 1em;
@@ -119,6 +131,20 @@ input:focus{
 .close-btn:hover{
   background-color: black;
   color: white;
+}
+.add-btn{
+  border: 1px solid #52adf2;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-top: 5px;
+  padding: 5px 10px;
+  color: white;
+  background-color: #52adf2;
+  transition: 150ms;
+}
+.add-btn:hover{
+  background-color: transparent;
+  color: #52adf2
 }
 .form-grid{
   display: grid;
