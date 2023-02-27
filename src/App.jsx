@@ -60,6 +60,10 @@ export default function App() {
             return [...prevExpenses]
         })
     }
+    function clearInput(event) {
+        event.target.parentNode.children[0].children[2].value = ''
+        event.target.parentNode.children[0].children[3].value = ''
+    }
     // component render map
     let expensesDisplay = expenses.map(expense => 
     <Expenses
@@ -100,6 +104,7 @@ export default function App() {
                             <input id="price" type="number" name="expensePrice" required />
                         </div>
                         <button onClick={addExpense} className="add-btn">Add</button>
+                        <button type="button" className="add-btn clear" onClick={clearInput}>Clear</button>
                     </form>
                 </div>
             </div>

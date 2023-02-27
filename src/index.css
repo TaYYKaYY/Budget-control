@@ -4,9 +4,11 @@
   box-sizing: border-box;
   font-family: 'Nunito', sans-serif;
 }
-/* p{
-  z-index: 1;
-} */
+body{
+  background: url("./dollar.jpg") no-repeat;
+  background-size: 1000px;
+  background-position: 50% 10%;
+}
 button{
   cursor: pointer;
 }
@@ -151,6 +153,9 @@ input:focus{
   grid-template-columns: repeat(2, 150px);
   row-gap: 5px;
   column-gap: 5px;
+}
+.clear{
+  margin-left: 5px;
 }
 @media all and (max-width: 500px){
   .dashboard{
