@@ -84,7 +84,7 @@ export default function App() {
                 <div className="dashboard">
                     <div className="numbers">
                         <p>My Budget: LBP {formatNum(budget)}</p>
-                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor}></button>
+                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor} title="edit"></button>
                     </div>
                     <div className="numbers">
                         <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formatNum(remaining)}</p>
@@ -96,7 +96,7 @@ export default function App() {
                 <div>
                     <div className="expenses-header">
                         <h2>Expenses</h2>
-                        <button className="clear-list fa-solid fa-broom" onClick={clearExpenses}></button>
+                        <button className="clear-list fa-solid fa-broom" onClick={clearExpenses} title="clear all"></button>
                     </div>
                     <div className="item-container__main">
                         {expenses.length === 0 ? <p>no expenses</p> : expensesDisplay}

@@ -7,15 +7,11 @@
 body{
   background: url("./dollar.jpg") no-repeat fixed;
   background-size: 800px;
-  background-position: 50% 55%;
+  background-position: 50% 50%;
 }
 button{
   cursor: pointer;
-}
-nav{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: black;
 }
 input{
   border: 1px solid black;
@@ -51,7 +47,7 @@ input:focus{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 .clear-list{
   font-size: 1.2em;
@@ -61,7 +57,8 @@ input:focus{
   transition: 150ms;
 }
 .clear-list:hover{
-  color: #52adf2
+  color: #52adf2;
+  transform: rotate(-90deg);
 }
 .numbers{
   display: flex;
@@ -174,6 +171,9 @@ input:focus{
   margin-left: 5px;
 }
 @media all and (max-width: 500px){
+  body{
+    background: white;
+  }
   .dashboard{
     flex-direction: column;
     align-items: center;
