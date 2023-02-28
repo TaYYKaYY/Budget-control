@@ -1,0 +1,1 @@
+This is a Budget Control Web App. You can add your budget and your expenses. See how much you have remaining, and how much you have spent so far.
