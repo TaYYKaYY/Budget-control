@@ -38,6 +38,10 @@ export default function App() {
     // add an expense from the inputs
     async function addExpense(event) {
         let children = event.target.parentNode.children[0].children
+        if (children[3].value < 0){
+            alert("Enter a number greater than zero")
+            return
+        }
         if (children[3].value && children[2].value){
             setExpenses(prevExpenses => {
                 return [
@@ -84,7 +88,7 @@ export default function App() {
                 <div className="dashboard">
                     <div className="numbers">
                         <p>My Budget: LBP {formatNum(budget)}</p>
-                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor} title="edit"></button>
+                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor} title="edit budget"></button>
                     </div>
                     <div className="numbers">
                         <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formatNum(remaining)}</p>
