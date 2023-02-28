@@ -14,31 +14,31 @@ export default function App() {
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
 
-    // function to add commas to the numbers
+    // add commas to the numbers
     function formatNum(num){
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
 
-    // fucntion to prevent the form from refreshing the page
+    // prevent the form from refreshing the page
     function handleSubmit(event){
         event.preventDefault()
     }
 
-    // fucntion to display the budget editor
+    // display the budget editor
     function bringEditor(event) {
         setBudgetEditor(prevBudgetEditor => !prevBudgetEditor)
         event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].focus()
     }
 
-    // function to set the budget to the value of the input
+    // set the budget to the value of the input
     function changeBudget(event) {
         setBudget(event.target.value)
     }
 
-    // function to add an expense from the inputs
-    function addExpense(event) {
+    // add an expense from the inputs
+    async function addExpense(event) {
         let children = event.target.parentNode.children[0].children
-        if (children[3].value){
+        if (children[3].value && children[2].value){
             setExpenses(prevExpenses => {
                 return [
                     ...prevExpenses,
@@ -48,9 +48,12 @@ export default function App() {
                     }
                 ]
             })
-        }
+            console.log(children[2].value)
     }
-    // function to delete a list item from the expenses list
+    children[2].value = await ''
+    children[3].value = await ''
+    }
+    // delete a list item from the expenses list
     function deleteItem(event){
         let {id} = event.target.parentNode
         let item = expenses.find(obj => obj.id === parseInt(id))
@@ -60,9 +63,9 @@ export default function App() {
             return [...prevExpenses]
         })
     }
-    function clearInput(event) {
-        event.target.parentNode.children[0].children[2].value = ''
-        event.target.parentNode.children[0].children[3].value = ''
+    // clear expenses list
+    function clearExpenses(){
+        setExpenses([])
     }
     // component render map
     let expensesDisplay = expenses.map(expense => 
@@ -90,8 +93,11 @@ export default function App() {
                         <p>Spent So Far: LBP {formatNum(totalSpent)}</p>
                     </div>
                 </div>
-                <div className="main">
-                    <h2>Expenses</h2>
+                <div>
+                    <div className="expenses-header">
+                        <h2>Expenses</h2>
+                        <button className="clear-list fa-solid fa-broom" onClick={clearExpenses}></button>
+                    </div>
                     <div className="item-container__main">
                         {expenses.length === 0 ? <p>no expenses</p> : expensesDisplay}
                     </div>
@@ -104,7 +110,6 @@ export default function App() {
                             <input id="price" type="number" name="expensePrice" required />
                         </div>
                         <button onClick={addExpense} className="add-btn">Add</button>
-                        <button type="button" className="add-btn clear" onClick={clearInput}>Clear</button>
                     </form>
                 </div>
             </div>

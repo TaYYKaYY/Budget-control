@@ -5,9 +5,9 @@
   font-family: 'Nunito', sans-serif;
 }
 body{
-  background: url("./dollar.jpg") no-repeat;
-  background-size: 1000px;
-  background-position: 50% 10%;
+  background: url("./dollar.jpg") no-repeat fixed;
+  background-size: 800px;
+  background-position: 50% 55%;
 }
 button{
   cursor: pointer;
@@ -26,10 +26,8 @@ input{
 input:focus{
   outline: none;
 }
-.dashboard{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+.wrapper{
+  padding: 0 20px;
 }
 .main-editor{
   display: flex;
@@ -44,8 +42,26 @@ input:focus{
   transition: 250ms cubic-bezier(.62,.08,.26,1.37);
   z-index: 2;
 }
-.wrapper{
-  padding: 0 20px;
+.dashboard{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.expenses-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+.clear-list{
+  font-size: 1.2em;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  transition: 150ms;
+}
+.clear-list:hover{
+  color: #52adf2
 }
 .numbers{
   display: flex;
