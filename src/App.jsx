@@ -9,7 +9,7 @@ import Expenses from "./components/Expenses";
 export default function App() {
     const [budgetEditor, setBudgetEditor] = useState(false)
     const [budget, setBudget] = useState(localStorage.getItem('budget') || 0)
-    const [expenses, setExpenses] = useState([])
+    const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || [])
     let totalSpent = 0
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
@@ -17,6 +17,10 @@ export default function App() {
     useEffect(() => {
         localStorage.setItem('budget', budget)
     }, [budget])
+
+    useEffect(() => {
+        localStorage.setItem('expenses', JSON.stringify(expenses))
+    }, [expenses])
 
     // add commas to the numbers
     function formatNum(num){
