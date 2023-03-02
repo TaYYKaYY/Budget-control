@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BudgetEditor from "./components/BudgetEditor";
 import Expenses from "./components/Expenses";
 
@@ -7,12 +7,20 @@ import Expenses from "./components/Expenses";
 */
 
 export default function App() {
-    let [budgetEditor, setBudgetEditor] = useState(false)
-    let [budget, setBudget] = useState(0)
-    let [expenses, setExpenses] = useState([])
+    const [budgetEditor, setBudgetEditor] = useState(false)
+    const [budget, setBudget] = useState(localStorage.getItem('budget') || 0)
+    const [expenses, setExpenses] = useState(JSON.parse(localStorage.getItem('expenses')) || [])
     let totalSpent = 0
     expenses.forEach(expense => totalSpent += expense.expensePrice)
     let remaining = budget - totalSpent
+
+    useEffect(() => {
+        localStorage.setItem('budget', budget)
+    }, [budget])
+
+    useEffect(() => {
+        localStorage.setItem('expenses', JSON.stringify(expenses))
+    }, [expenses])
 
     // add commas to the numbers
     function formatNum(num){
@@ -28,6 +36,7 @@ export default function App() {
     function bringEditor(event) {
         setBudgetEditor(prevBudgetEditor => !prevBudgetEditor)
         event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].focus()
+        event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].value = budget ? budget : ''
     }
 
     // set the budget to the value of the input
@@ -39,6 +48,7 @@ export default function App() {
     async function addExpense(event) {
         let children = event.target.parentNode.children[0].children
         if (children[3].value < 0){
+            children[3].value = ''
             alert("Enter a number greater than zero")
             return
         }
@@ -52,10 +62,10 @@ export default function App() {
                     }
                 ]
             })
-            console.log(children[2].value)
+            children[2].focus()
     }
-    children[2].value = await ''
-    children[3].value = await ''
+        children[2].value = children[3].value ? await '' : children[2].value
+        children[3].value = await ''
     }
     // delete a list item from the expenses list
     function deleteItem(event){
@@ -83,7 +93,12 @@ export default function App() {
     )
     return (
         <div className="wrapper">
-            <BudgetEditor show={budgetEditor} submit={handleSubmit} budgetChange={changeBudget} hideEditor={bringEditor}/>
+            <BudgetEditor
+            show={budgetEditor}
+            submit={handleSubmit}
+            budgetChange={changeBudget}
+            hideEditor={bringEditor}
+            />
             <h1>My Budget Planner</h1>
                 <div className="dashboard">
                     <div className="numbers">
@@ -110,8 +125,8 @@ export default function App() {
                         <div className="form-grid">
                             <p>Name</p>
                             <p>Price</p>
-                            <input id="name" type="text" name="expenseName" required />
-                            <input id="price" type="number" name="expensePrice" required />
+                            <input id="name" type="text" name="expenseName" />
+                            <input id="price" type="number" name="expensePrice" />
                         </div>
                         <button onClick={addExpense} className="add-btn">Add</button>
                     </form>
