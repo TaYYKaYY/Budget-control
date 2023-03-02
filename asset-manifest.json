@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/budget-control/static/css/main.418fbe5e.css",
+    "main.js": "/budget-control/static/js/main.85436017.js",
+    "index.html": "/budget-control/index.html",
+    "main.418fbe5e.css.map": "/budget-control/static/css/main.418fbe5e.css.map",
+    "main.85436017.js.map": "/budget-control/static/js/main.85436017.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.418fbe5e.css",
+    "static/js/main.85436017.js"
+  ]
+}
