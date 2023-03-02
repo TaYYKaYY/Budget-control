@@ -36,7 +36,7 @@ export default function App() {
     function bringEditor(event) {
         setBudgetEditor(prevBudgetEditor => !prevBudgetEditor)
         event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].focus()
-        event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].value = budget ? budget : ''
+        event.target.parentNode.parentNode.parentNode.children[0].children[0].children[0].children[0].value = budget === JSON.stringify(0) ? '' : budget
     }
 
     // set the budget to the value of the input
