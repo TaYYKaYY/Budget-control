@@ -18,6 +18,7 @@ input{
   border-radius: 5px; 
   padding: 5px;
   font-size: 1em;
+  color: red;
 }
 input:focus{
   outline: none;
