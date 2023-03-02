@@ -1,6 +1,6 @@
 {
   "homepage": "http://tayykayy.github.io/Budget-control",
-  "name": "test-one",
+  "name": "budget-control",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
