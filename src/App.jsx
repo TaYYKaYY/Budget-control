@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import BudgetEditor from "./components/BudgetEditor";
 import Expenses from "./components/Expenses";
 
-/* To work on:
-    - localStorage
-*/
+
 
 export default function App() {
     const [budgetEditor, setBudgetEditor] = useState(false)
@@ -99,38 +97,41 @@ export default function App() {
             budgetChange={changeBudget}
             hideEditor={bringEditor}
             />
-            <h1>My Budget Planner</h1>
-                <div className="dashboard">
-                    <div className="numbers">
-                        <p>My Budget: LBP {formatNum(budget)}</p>
-                        <button className="fa-solid fa-edit edit-btn" onClick={bringEditor} title="edit budget"></button>
-                    </div>
-                    <div className="numbers">
-                        <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: LBP {formatNum(remaining)}</p>
-                    </div>
-                    <div className="numbers">
-                        <p>Spent So Far: LBP {formatNum(totalSpent)}</p>
-                    </div>
+            <nav>
+                <h1>My Budget Planner</h1>
+                <button>$</button>
+            </nav>
+            <div className="dashboard">
+                <div className="numbers">
+                    <p>My Budget: USD {formatNum(budget)}</p>
+                    <button className="fa-solid fa-edit edit-btn" onClick={bringEditor} title="edit budget"></button>
                 </div>
-                <div>
-                    <div className="expenses-header">
-                        <h2>Expenses</h2>
-                        <button className="clear-list fa-solid fa-broom" onClick={clearExpenses} title="clear all"></button>
-                    </div>
-                    <div className="item-container__main">
-                        {expenses.length === 0 ? <p>no expenses</p> : expensesDisplay}
-                    </div>
-                    <h2>Add Expense</h2>
-                    <form onSubmit={handleSubmit} className="add-expense">
-                        <div className="form-grid">
-                            <p>Name</p>
-                            <p>Price</p>
-                            <input id="name" type="text" name="expenseName" />
-                            <input id="price" type="number" name="expensePrice" />
-                        </div>
-                        <button onClick={addExpense} className="add-btn">Add</button>
-                    </form>
+                <div className="numbers">
+                    <p style={{color: remaining < 0 ? 'red' : 'inherit'}}>Remaining: USD {formatNum(remaining)}</p>
+                </div>
+                <div className="numbers">
+                    <p>Spent So Far: USD {formatNum(totalSpent)}</p>
                 </div>
             </div>
+            <div>
+                <div className="expenses-header">
+                    <h2>Expenses</h2>
+                    <button className="clear-list fa-solid fa-broom" onClick={clearExpenses} title="clear all"></button>
+                </div>
+                <div className="item-container__main">
+                    {expenses.length === 0 ? <p>no expenses</p> : expensesDisplay}
+                </div>
+                <h2>Add Expense</h2>
+                <form onSubmit={handleSubmit} className="add-expense">
+                    <div className="form-grid">
+                        <p>Name</p>
+                        <p>Price</p>
+                        <input id="name" type="text" name="expenseName" />
+                        <input id="price" type="number" name="expensePrice" />
+                    </div>
+                    <button onClick={addExpense} className="add-btn">Add</button>
+                </form>
+            </div>
+        </div>
     )
 }

@@ -18,10 +18,14 @@ input{
   border-radius: 5px; 
   padding: 5px;
   font-size: 1em;
-  color: red;
 }
 input:focus{
   outline: none;
+}
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .wrapper{
   padding: 0 20px;
